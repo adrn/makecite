@@ -15,7 +15,8 @@ def find_all_files(root_path=None):
     :rtype: dict
     """
     if not root_path: 
-        root_path = os.getcwd()
+        root_path = os.path.abspath(os.getcwd())
+    print(root_path)
     root_path = expanduser(root_path)
     _files={'py':[], 'ipynb':[]}
     for root, dirs, files in os.walk(root_path):

@@ -12,7 +12,8 @@ setup(name='makecite',
       tests_require=[],
       include_package_data=True,
       description='Package for making bibtex citation strings for common python packages',
-      long_description="Searching through a folder's "
+      long_description="Searching through a folder's python and python Notebook "
+      "files and creates a bibtex string for all used packages",
       author='Adrian Price-Whelan,Alexandar Mechev',
       author_email='LOFAR@apmechev.com',
       url='https://www.github.com/adrn/makecite',
