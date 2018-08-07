@@ -8,12 +8,9 @@ python:
   - "3.6"
     #  - "3.7"
 before_install:
-    - pip install pytest
-    - pip install codecov
-    - pip install pytest-cov
+    - pip install pytest codecov pytest-cov nbformat nbconvert
 script:
     - export PYTHONPATH=$PWD:$PYTHONPATH
-    - py.test 
+    - py.test
 #after_success:
 #  - codecov
-
