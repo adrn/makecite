@@ -5,11 +5,24 @@ python:
   - "3.5"
   - "3.6"
     #  - "3.7"
+
 before_install:
  - pip install pytest codecov pytest-cov ipython nbformat nbconvert
  - pip install coverage coveralls
+
+env:
+    global:
+        - CMD=''
+
+matrix:
+    include:
+        - python: 3.6
+          env: CMD='--cov=makecite'
+
 script:
  - python setup.py install
- - py.test --cov=makecite
+ - py.test $CMD
+
 after_success:
  - coveralls
+- if [[ $CMD == '--cov=makecite' ]]; then coveralls; fi
