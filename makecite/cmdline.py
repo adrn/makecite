@@ -1,6 +1,12 @@
+# Standard library
 import os
+
+# Package
 from .discover import find_all_files
 from .parsers import parser_map
+
+_bib_path = os.path.join(os.path.split(os.path.abspath(__file__))[0],
+                         'bibfiles')
 
 def get_all_packages(paths, extensions=['.py', '.ipynb']):
     """Get a unique list (set) of all package names imported by all files of
@@ -40,6 +46,30 @@ def get_all_packages(paths, extensions=['.py', '.ipynb']):
     return all_packages
 
 
+def get_bibtex(package_name):
+    """Fetch the bibtex entry for the specified package by comparing to our
+    local list of bibtex entries.
+
+    Parameters
+    ----------
+    package_name : str
+
+    Returns
+    -------
+    bibtex : str
+
+    """
+    full_path = os.path.join(_bib_path, '{0}.bib'.format(package_name))
+    if not os.path.exists(full_path):
+        raise ValueError('Bibtex not found for {0}! If you know it has a '
+                         'citation, please consider adding it via pull request '
+                         ' to: https://github.com/adrn/makecite')
+
+    with open(full_path, 'r') as f:
+        bibtex = f.read()
+
+    return bibtex
+
 def main(args=None):
     from argparse import ArgumentParser
 
@@ -75,4 +105,16 @@ def main(args=None):
     packages = get_all_packages(paths=args.paths,
                                 extensions=args.extensions)
 
+    all_bibtex = ""
+    for package in sorted(list(packages)):
+        try:
+            bibtex = get_bibtex(package)
+        except ValueError:
+            # TODO: package doesn't have a .bib file in this repo. Ignore for
+            # now, but we might want to try a web query or something?
+            continue
+
+        all_bibtex = '{0}\n\n{1}'.format(all_bibtex, bibtex)
+
     print(packages)
+    print(all_bibtex)
