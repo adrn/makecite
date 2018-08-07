@@ -82,7 +82,7 @@ def main(args=None):
                              'supported.')
 
     parser.add_argument('-o', '--output-file', dest='output_file',
-                        default='software-refs.bib',
+                        default=None,
                         help='For example, "software-refs.bib". The file to '
                              'save the bibtex references to. If the file '
                              'exists, this will append the citations to the ' 'end of the existing file. Otherwise, the file '
@@ -106,15 +106,29 @@ def main(args=None):
                                 extensions=args.extensions)
 
     all_bibtex = ""
+    y_citation = []
+    n_citation = []
     for package in sorted(list(packages)):
         try:
             bibtex = get_bibtex(package)
+            y_citation.append(package)
         except ValueError:
-            # TODO: package doesn't have a .bib file in this repo. Ignore for
-            # now, but we might want to try a web query or something?
-            continue
+            # Package doesn't have a .bib file in this repo. For now, just alert
+            # the user, but we might want to try a web query or something?
+            n_citation.append(package)
 
         all_bibtex = '{0}\n\n{1}'.format(all_bibtex, bibtex)
 
-    print(packages)
-    print(all_bibtex)
+    # TODO: print out some information about the packages identified, and ones
+    # that don't have citation information in here?
+    print("Packages detected with citation information:")
+    print("\t{0}".format(", ".join(y_citation)))
+
+    print("\nPackages with no citation information:")
+    print("\t{0}".format(", ".join(n_citation)))
+
+    if args.output_file:
+        # save .bib output file
+        print(all_bibtex)
+
+    # TODO: if --aas, also print \software{} tag?
