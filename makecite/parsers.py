@@ -31,16 +31,22 @@ def parse_py_module(filename):
             else:
                 continue
 
-            line = line.split(' as ')[0]
-            line = line.split(' import ')[0]
+            packages = line.split(' as ')[0]
+            packages = packages.split(' import ')[0]
 
-            if ',' in line:
-                line = [x.strip() for x in line.split(',')]
+            # Split up import statements with multiple packages, comma-separated
+            if ',' in packages:
+                packages = [x.strip() for x in packages.split(',')]
 
             else:
-                line = [line]
+                packages = [packages]
 
-            all_packages += line
+            # Extract the root package name from imported subpackages and
+            # remove relative imports, dunder imports (like __future__)
+            packages = [pkg.split('.')[0] for pkg in packages
+                        if not pkg.startswith('.') and not pkg.startswith('__')]
+
+            all_packages += packages
 
     return set(all_packages)
 
