@@ -116,8 +116,9 @@ def main(args=None):
             # Package doesn't have a .bib file in this repo. For now, just alert
             # the user, but we might want to try a web query or something?
             n_citation.append(package)
+            continue
 
-        all_bibtex = '{0}\n\n{1}'.format(all_bibtex, bibtex)
+        all_bibtex = "{0}\n{1}".format(all_bibtex, bibtex)
 
     # TODO: print out some information about the packages identified, and ones
     # that don't have citation information in here?
@@ -129,6 +130,13 @@ def main(args=None):
 
     if args.output_file:
         # save .bib output file
+        print("\nBibtex file generate: {0}".format(args.output_file))
+
+        with open(args.output_file, 'a') as f:
+            f.write(all_bibtex)
+
+    else:
+        print("\nBibtex:")
         print(all_bibtex)
 
     # TODO: if --aas, also print \software{} tag?
