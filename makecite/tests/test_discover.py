@@ -13,4 +13,3 @@ def test_discover():
     assert 'discover.py' in [x.split('/')[-1] for x in discovered['.py']]
     assert  '__init__.py' in [x.split('/')[-1] for x in discovered['.py']]
     assert 'test_discover.py'in [x.split('/')[-1] for x in discovered['.py']]
-

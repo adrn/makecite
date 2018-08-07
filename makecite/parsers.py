@@ -15,19 +15,10 @@ def parse_py_module(filename_or_str):
         A unique list of all (root) packages imported by the specified notebook
         file.
 
-    Notes
-    -----
-    - This currently fails to parse multi-line imports that use "\"! For example
-
-        import astropy, \
-        numpy
-
-      but that seriously violates PEP8 anyways!
-
     """
     if path.exists(filename_or_str):
-        with open(filename_or_str, 'r') as f:
-            lines = f.readlines()
+        with open(filename_or_str, 'r') as _file:
+            lines = _file.readlines()
 
     else:
         lines = filename_or_str.split('\n')
@@ -37,20 +28,30 @@ def parse_py_module(filename_or_str):
         line = line.rstrip('\n')
 
         if line.startswith('import'):
-            line = line[7:]
+            parsed_line = line[7:]
 
         elif line.startswith('from'):
-            line = line[5:]
+            parsed_line = line[5:]
 
         else:
             continue
 
-        packages = line.split(' as ')[0]
+        packages = parsed_line.split(' as ')[0]
         packages = packages.split(' import ')[0]
 
         # Split up import statements with multiple packages, comma-separated
-        if ',' in packages:
+        if ',' in packages and not '\\' in packages:
             packages = [x.strip() for x in packages.split(',')]
+
+        elif ',' in packages and "\\" in packages:
+            packages = [x.strip() for x in packages.split(',')][:-1]
+            next_packages = lines[lines.index(line+'\n')+1].strip()
+
+            if ',' in next_packages:
+                for pkg in next_packages.split(','):
+                    packages.append(pkg)
+            else:
+                packages.append(next_packages)
 
         else:
             packages = [packages]
@@ -84,11 +85,11 @@ def parse_ipynb_file(filename):
     import nbformat
     from nbconvert import PythonExporter
 
-    with open(filename) as f:
-        nb_stuff = nbformat.reads(f.read(), as_version=4)
+    with open(filename) as _file:
+        nb_stuff = nbformat.reads(_file.read(), as_version=4)
 
     exporter = PythonExporter()
-    (body, resources) = exporter.from_notebook_node(nb_stuff)
+    (body, _) = exporter.from_notebook_node(nb_stuff)
 
     return parse_py_module(body)
 
