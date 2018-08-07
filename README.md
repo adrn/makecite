@@ -10,16 +10,22 @@ Generate latex + bibtex citation commands by looking at what packages are import
 
 Get bibtex records for packages used in a single script, and store to a `.bib` file in the current working directory:
 
-`makecite my_script.py`
+```
+makecite my_script.py
+```
 
 
 Get bibtex records for packages used in all `.py` scripts in the current directory and store to a `.bib` file:
 
-`makecite --ext=.py .`
+```
+makecite --ext=.py .
+```
 
 Get bibtex records for packages used in all `.py` scripts and IPython notebook, `.ipynb`, files in two paths `my_code` and `my_notebooks`:
 
-`makecite --ext=.py --ext=.ipynb my_code my_notebooks`
+```
+makecite --ext=.py --ext=.ipynb my_code my_notebooks
+```
 
 
 ## Citing this script
@@ -29,12 +35,9 @@ TODO
 
 ## License
 
-License
--------
-
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/adrn/makecite/blob/master/LICENSE)
 
-Copyright 2018- the developers.
+Copyright 2018 the developers.
 
 `makecite` is free software made available under the MIT License. For details
 see the [LICENSE](https://github.com/adrn/makecite/blob/master/LICENSE) file.
