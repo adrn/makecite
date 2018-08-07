@@ -43,3 +43,12 @@ def parse_py_module(filename):
             all_packages += line
 
     return set(all_packages)
+
+
+def parse_ipynb_file(filename):
+    """ """
+    pass
+
+
+parser_map = {'.py': parse_py_module,
+              '.ipynb': parse_ipynb_file}

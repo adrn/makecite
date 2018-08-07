@@ -3,7 +3,7 @@
 import os
 from os.path import expanduser
 
-def find_all_files(root_path=None):
+def find_all_files(root_path=None, extensions=['.py', '.ipynb']):
     """Find all relevant files in the current directory
     and returns a dictionary, grouping files by type (.ipynb, .py)
 
@@ -22,11 +22,16 @@ def find_all_files(root_path=None):
         root_path = os.path.abspath(os.getcwd())
 
     root_path = expanduser(root_path)
-    _files = {'py': [], 'ipynb': []}
+
+    # Set up container to store all files with the requested extensions
+    _files = {}
+    for ext in extensions:
+        _files[ext] = []
+
     for root, dirs, files in os.walk(root_path):
         for _file in files:
-            for ext in list(_files):
-                if _file.endswith("." + ext):
-                    _files[ext].append(_file)
+            _, ext = os.path.splitext(_file)
+            if ext in extensions:
+                _files[ext].append(_file)
 
     return _files
