@@ -3,7 +3,7 @@
 """Setup script for the makecite package """
 
 from setuptools import setup
-from makecite import __version__ as version
+from makecite import __version__
 
 # Add entry point for `makecite` to be run as a script:
 entry_points = {}
@@ -11,9 +11,10 @@ entry_points['console_scripts'] = ['makecite = makecite.cmdline:main']
 
 setup(name='makecite',
       packages=[],
-      version=version,
+      version=__version__,
       setup_requires=[],
       tests_require=[],
+      package_data={'makecite': ['makecite/bibfiles/*.bib']},
       include_package_data=True,
       description='Autogenerate bibtex citations for common Python packages',
       long_description=("Searches through a Python and Jupyter Notebook files "
@@ -33,8 +34,6 @@ setup(name='makecite',
                    "Topic :: Scientific/Engineering :: Astronomy",
                    "Topic :: Text Processing :: Markup :: LaTeX",
                    'Programming Language :: Python :: 3',
-                   'Programming Language :: Python :: 3.2',
-                   'Programming Language :: Python :: 3.3',
                    'Programming Language :: Python :: 3.4',
                    'Programming Language :: Python :: 3.5',
                    'Programming Language :: Python :: 3.6'
