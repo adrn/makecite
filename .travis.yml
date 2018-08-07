@@ -12,6 +12,7 @@ before_install:
     - pip install codecov
     - pip install pytest-cov
 script:
+    - export PYTHONPATH=$PWD:$PYTHONPATH
     - py.test 
 #after_success:
 #  - codecov
