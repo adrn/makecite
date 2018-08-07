@@ -17,8 +17,8 @@ def parse_py_module(filename_or_str):
 
     """
     if path.exists(filename_or_str):
-        with open(filename_or_str, 'r') as f:
-            lines = f.readlines()
+        with open(filename_or_str, 'r') as _file:
+            lines = _file.readlines()
 
     else:
         lines = filename_or_str.split('\n')
@@ -29,10 +29,10 @@ def parse_py_module(filename_or_str):
 
         if line.startswith('import'):
             parsed_line = line[7:]
-        
+
         elif line.startswith('from'):
             parsed_line = line[5:]
-        
+
         else:
             continue
 
@@ -44,7 +44,7 @@ def parse_py_module(filename_or_str):
             packages = [x.strip() for x in packages.split(',')]
 
         elif ',' in packages and "\\" in packages:
-            packages=[x.strip() for x in packages.split(',')][:-1]
+            packages = [x.strip() for x in packages.split(',')][:-1]
             next_packages = lines[lines.index(line+'\n')+1].strip()
 
             if ',' in next_packages:
@@ -85,11 +85,11 @@ def parse_ipynb_file(filename):
     import nbformat
     from nbconvert import PythonExporter
 
-    with open(filename) as f:
-        nb_stuff = nbformat.reads(f.read(), as_version=4)
+    with open(filename) as _file:
+        nb_stuff = nbformat.reads(_file.read(), as_version=4)
 
     exporter = PythonExporter()
-    (body, resources) = exporter.from_notebook_node(nb_stuff)
+    (body, _) = exporter.from_notebook_node(nb_stuff)
 
     return parse_py_module(body)
 
