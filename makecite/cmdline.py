@@ -120,8 +120,8 @@ def main(args=None):
 
         all_bibtex = "{0}\n{1}".format(all_bibtex, bibtex)
 
-    # TODO: print out some information about the packages identified, and ones
-    # that don't have citation information in here?
+    # print out some information about the packages identified, and ones
+    # that don't have citation information
     print("Packages detected with citation information:")
     print("\t{0}".format(", ".join(y_citation)))
 
