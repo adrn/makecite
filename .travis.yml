@@ -24,4 +24,4 @@ script:
 
 after_success:
  - coveralls
-- if [[ $CMD == '--cov=makecite' ]]; then coveralls; fi
+ - if [[ $CMD == '--cov=makecite' ]]; then coveralls; fi
