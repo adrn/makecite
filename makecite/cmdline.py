@@ -2,14 +2,13 @@ import os
 from .discover import find_all_files
 from .parsers import parser_map
 
-def get_all_packages(paths, output_file, extensions):
+def get_all_packages(paths, extensions=['.py', '.ipynb']):
     """Get a unique list (set) of all package names imported by all files of
     the requested extensions
 
     Parameters
     ----------
     paths : list, str
-    output_file : str
     extensions : list, iterable
 
     Returns
@@ -74,7 +73,6 @@ def main(args=None):
         args.extensions = ['.py', '.ipynb']
 
     packages = get_all_packages(paths=args.paths,
-                                output_file=args.output_file,
                                 extensions=args.extensions)
 
     print(packages)
