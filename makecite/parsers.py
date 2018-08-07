@@ -95,4 +95,5 @@ def parse_ipynb_file(filename):
 
 
 parser_map = {'.py': parse_py_module,
+              '.pyx': parse_py_module,
               '.ipynb': parse_ipynb_file}
