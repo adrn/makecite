@@ -8,8 +8,7 @@ from makecite import __version__ as version
 # Add entry point for `makecite` to be run as a script:
 entry_points = {}
 entry_points['console_scripts'] = [
-            'makecite = makecite.cmdline:main',
-            ]
+    'makecite = makecite.cmdline:main',
 
 setup(name='makecite',
       packages=[],
@@ -42,4 +41,4 @@ setup(name='makecite',
                    'Programming Language :: Python :: 3.6'
                    ],
       entry_points=entry_points
-      )
+    )

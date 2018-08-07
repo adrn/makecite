@@ -61,4 +61,5 @@ def main(args=None):
     if not args.extensions:
         args.extensions = ['.py', '.ipynb']
 
-    thing(**vars(args))
+    packages = thing(**vars(args))
+    print(packages)
