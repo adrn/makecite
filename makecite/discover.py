@@ -28,7 +28,7 @@ def find_all_files(root_path=None, extensions=['.py', '.ipynb']):
     for ext in extensions:
         _files[ext] = []
 
-    for root, dirs, files in os.walk(root_path):
+    for root, _, files in os.walk(root_path):
         for _file in files:
             _, ext = os.path.splitext(_file)
             if ext in extensions:
