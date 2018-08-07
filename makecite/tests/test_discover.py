@@ -1,8 +1,10 @@
-from makecite import discover
-import makecite
+"""Testing the discovery of python and ipython notebook files
+"""
 
 import os
-import sys
+
+from makecite import discover
+import makecite
 
 def test_discover():
     """Test finding the files in the module's directory"""
