@@ -2,7 +2,6 @@
 """
 import os
 from os.path import expanduser
-from os import walk
 
 def find_all_files(root_path=None):
     """Find all relevant files in the current directory
@@ -27,7 +26,7 @@ def find_all_files(root_path=None):
     for root, dirs, files in os.walk(root_path):
         for _file in files:
             for ext in list(_files):
-                if _file.endswith("."+ext):
+                if _file.endswith("." + ext):
                     _files[ext].append(_file)
-                    
+
     return _files
