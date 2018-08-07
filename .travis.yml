@@ -6,9 +6,10 @@ python:
   - "3.6"
     #  - "3.7"
 before_install:
-    - pip install pytest codecov pytest-cov nbformat nbconvert
+ - pip install pytest codecov pytest-cov ipython nbformat nbconvert
+ - pip install coverage coveralls
 script:
-    - export PYTHONPATH=$PWD:$PYTHONPATH
-    - py.test --cov=makecite
-#after_success:
-#  - codecov
+ - python setup.py install
+ - py.test --cov=makecite
+after_success:
+ - coveralls
