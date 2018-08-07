@@ -2,7 +2,21 @@ import os
 from .discover import find_all_files
 from .parsers import parser_map
 
-def thing(paths, output_file, extensions, aas_tag):
+def get_all_packages(paths, output_file, extensions):
+    """Get a unique list (set) of all package names imported by all files of
+    the requested extensions
+
+    Parameters
+    ----------
+    paths : list, str
+    output_file : str
+    extensions : list, iterable
+
+    Returns
+    -------
+    packages : set
+
+    """
     if isinstance(paths, str):
         paths = [paths]
 
@@ -28,8 +42,6 @@ def thing(paths, output_file, extensions, aas_tag):
 
 
 def main(args=None):
-    """TODO..."""
-
     from argparse import ArgumentParser
 
     parser = ArgumentParser(description='TODO: docs')
@@ -61,5 +73,8 @@ def main(args=None):
     if not args.extensions:
         args.extensions = ['.py', '.ipynb']
 
-    packages = thing(**vars(args))
+    packages = get_all_packages(paths=args.paths,
+                                output_file=args.output_file,
+                                extensions=args.extensions)
+
     print(packages)
