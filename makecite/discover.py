@@ -1,7 +1,7 @@
 """makecite.discover: Discover all imports used in all python files in the current folder.
 """
 import os
-from os.path import expanduser
+from os.path import expanduser, abspath, join
 
 def find_all_files(root_path=None, extensions=['.py', '.ipynb']):
     """Find all relevant files in the current directory
@@ -32,6 +32,6 @@ def find_all_files(root_path=None, extensions=['.py', '.ipynb']):
         for _file in files:
             _, ext = os.path.splitext(_file)
             if ext in extensions:
-                _files[ext].append(_file)
+                _files[ext].append(abspath(join(root, _file)))
 
     return _files
