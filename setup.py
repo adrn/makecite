@@ -10,7 +10,7 @@ entry_points = {}
 entry_points['console_scripts'] = ['makecite = makecite.cmdline:main']
 
 setup(name='makecite',
-      packages=[],
+      packages=['makecite'],
       version=__version__,
       setup_requires=[],
       tests_require=[],
