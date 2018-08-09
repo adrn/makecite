@@ -1,0 +1,10 @@
+include README.md
+include LICENSE
+
+recursive-include makecite/bibfiles/ *.bib
+
+prune build
+prune docs/_build
+prune docs/api
+
+global-exclude *.pyc *.o
