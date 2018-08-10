@@ -21,7 +21,7 @@ setup(name='makecite',
                         "and creates a bibtex citation string for all " "packages used."),
       author=('Adrian Price-Whelan, '
               'Alexandar Mechev, '
-              'Julia Melo Rodrigues de Aguiar',
+              'Julia Melo Rodrigues de Aguiar, '
               'Leon Trapman'),
       author_email='adrn@astro.princeton.edu',
       url='https://github.com/adrn/makecite',
