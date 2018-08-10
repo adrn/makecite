@@ -21,6 +21,7 @@ setup(name='makecite',
       include_package_data=True,
       description='Autogenerate bibtex citations for common Python packages',
       long_description=LONG_DESCRIPTION,
+      long_description_content_type='text/markdown',
       author=('Adrian Price-Whelan, '
               'Alexandar Mechev, '
               'Julia Melo Rodrigues de Aguiar, '
