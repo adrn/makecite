@@ -25,6 +25,7 @@ setup(name='makecite',
       author=('Adrian Price-Whelan, '
               'Alexandar Mechev, '
               'Julia Melo Rodrigues de Aguiar, '
+              'Brigitta Sipocz, '
               'Leon Trapman'),
       author_email='adrn@astro.princeton.edu',
       url='https://github.com/adrn/makecite',
