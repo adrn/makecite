@@ -1,3 +1,7 @@
 .coverage
 build
 dist
+
+.idea
+.pytest_cache
+__pycache__
