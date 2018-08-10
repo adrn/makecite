@@ -3,6 +3,7 @@ import os
 import re
 
 # Package
+from . import __version__
 from .discover import find_all_files
 from .parsers import parser_map
 
@@ -97,6 +98,9 @@ def main(args=None):
     parser.add_argument('paths', type=str, nargs='+',
                         help='A path, filename, or list of paths to search '
                              'for imported packages.')
+
+    parser.add_argument('--version', action='version',
+                        version=__version__)
 
     args = parser.parse_args(args)
 
