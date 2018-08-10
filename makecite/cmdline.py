@@ -60,7 +60,7 @@ def get_bibtex(package_name):
     bibtex : str
 
     """
-    full_path = os.path.join(_bib_path, '{0}.bib'.format(package_name))
+    full_path = os.path.join(_bib_path, '{0}.bib'.format(package_name.lower()))
     if not os.path.exists(full_path):
         raise ValueError('Bibtex not found for {0}! If you know it has a '
                          'citation, please consider adding it via pull request '
