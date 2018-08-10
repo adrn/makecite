@@ -4,8 +4,9 @@ python:
   - 3.5
   - 3.6
 
+# emcee is needed to test __bibtex__
 before_install:
- - pip install pytest codecov pytest-cov ipython nbformat nbconvert
+ - pip install pytest codecov pytest-cov ipython nbformat nbconvert emcee
  - pip install coverage coveralls
 
 env:

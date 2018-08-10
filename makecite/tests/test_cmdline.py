@@ -43,10 +43,10 @@ def test_bibtex():
 def test_bibtex_from_package():
     # Try package that has a __bibtex__ attribute, but skip if package is not installed
     try:
-        import matplotlib
-        bibtex = get_bibtex_from_package('matplotlib')
-        assert 'Hunter' in bibtex
     except ModuleNotFoundError:
+        import emcee
+        bibtex = get_bibtex_from_package('emcee')
+        assert 'MCMC Hammer' in bibtex
         pass
 
     # Try dummy package
