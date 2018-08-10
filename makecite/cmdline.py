@@ -1,6 +1,8 @@
 # Standard library
 import os
 import re
+import warnings
+import importlib
 
 # Package
 from .discover import find_all_files
@@ -70,6 +72,43 @@ def get_bibtex(package_name):
         bibtex = f.read()
 
     return bibtex
+
+
+def get_bibtex_from_package(package_name, update_local=False):
+    """
+    Fetch BibTeX information directly from the package if available either via
+    __bibtex__ or __citation__.
+
+    Parameters
+    ----------
+    package_name : str
+        Name of the package.
+    update_local : bool
+        If True, update the local BibTeX information in ``makecite``. Default is False.
+
+    Returns
+    -------
+    bibtex : str or None
+        Returns the BibTeX string or None if the package is not installed or doesn't provide one.
+    """
+    try:
+        package = importlib.import_module(package_name)
+        for attr in ['__bibtex__', '__citation__']:
+            citation_info = getattr(package, attr, None)
+            if citation_info:
+                break
+    except ImportError:
+        warnings.warn("{} is not installed, cannot look for package provided BibTeX."
+                      .format(package_name))
+        return None
+
+    if citation_info and update_local:
+        path = os.path.join(_bib_path, '{0}.bib'.format(package_name))
+        with open(path, 'w') as f:
+            f.write(citation_info)
+
+    return citation_info
+
 
 def main(args=None):
     from argparse import ArgumentParser
