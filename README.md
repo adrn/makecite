@@ -35,7 +35,20 @@ makecite --ext=.py --ext=.ipynb my_code my_notebooks
 ## Citing this script
 
 If you use this script, please consider citing [our Zenodo
-record](https://zenodo.org/badge/latestdoi/143292502)!
+record](https://zenodo.org/badge/latestdoi/143292502):
+
+```
+@misc{makecite:2018,
+  author       = {Adrian Price-Whelan and
+                  Alexandar Mechev and
+                  jumeroag},
+  title        = {adrn/makecite: v0.1},
+  month        = aug,
+  year         = 2018,
+  doi          = {10.5281/zenodo.1343295},
+  url          = {https://doi.org/10.5281/zenodo.1343295}
+}
+```
 
 
 ## License
