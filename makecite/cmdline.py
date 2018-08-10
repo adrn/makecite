@@ -205,7 +205,7 @@ def main(args=None):
 
     if args.output_file:
         # save .bib output file
-        print("\nBibtex file generate: {0}".format(args.output_file))
+        print("\nBibtex file generated: {0}".format(args.output_file))
 
         with open(args.output_file, 'a') as f:
             f.write(all_bibtex)
