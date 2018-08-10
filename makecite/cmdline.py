@@ -1,5 +1,6 @@
 # Standard library
 import os
+import re
 
 # Package
 from .discover import find_all_files
@@ -99,6 +100,8 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
+    cite_tag_pattr = re.compile('@[a-zA-Z]+\{(.*),')
+
     if not args.extensions:
         args.extensions = ['.py', '.ipynb']
 
@@ -108,10 +111,12 @@ def main(args=None):
     all_bibtex = ""
     y_citation = []
     n_citation = []
+    name_to_tags = dict()
     for package in sorted(list(packages)):
         try:
             bibtex = get_bibtex(package)
             y_citation.append(package)
+            name_to_tags[package] = cite_tag_pattr.findall(bibtex)
         except ValueError:
             # Package doesn't have a .bib file in this repo. For now, just alert
             # the user, but we might want to try a web query or something?
@@ -139,4 +144,12 @@ def main(args=None):
         print("\nBibtex:")
         print(all_bibtex)
 
-    # TODO: if --aas, also print \software{} tag?
+    if args.aas_tag:
+        cites = []
+        for name, tags in name_to_tags.items():
+            cites.append('{0} \\citep{{{1}}}'.format(name, ', '.join(tags)))
+
+        software = ('\software{{{0}}}'.format(', '.join(cites)))
+
+        print("\nSoftware tag for AAS journals:")
+        print(software)
