@@ -18,11 +18,10 @@ Get bibtex records for packages used in a single script, and store to a `.bib` f
 makecite my_script.py
 ```
 
-
-Get bibtex records for packages used in all `.py` scripts in the current directory and store to a `.bib` file:
+Get bibtex records for packages used in all `.py` scripts in the current directory and store to a `.bib` file called "software_refs.bib":
 
 ```
-makecite --ext=.py .
+makecite --ext=.py -o software_refs.bib .
 ```
 
 Get bibtex records for packages used in all `.py` scripts and IPython notebook, `.ipynb`, files in two paths `my_code` and `my_notebooks`:
@@ -31,6 +30,11 @@ Get bibtex records for packages used in all `.py` scripts and IPython notebook, 
 makecite --ext=.py --ext=.ipynb my_code my_notebooks
 ```
 
+Get bibtex records for packages used in all `.py` scripts in the current directory and output a AAS journals `\software{}` tag:
+
+```
+makecite --ext=.py --aas .
+```
 
 ## Citing this script
 
