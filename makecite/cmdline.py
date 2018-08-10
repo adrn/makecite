@@ -95,9 +95,10 @@ def main(args=None):
     makecite --ext=.py --aas .
     '''
 
-    desc = ('Generate latex + bibtex citation commands by looking at what '
+    desc = ('(Version {0})\n\n'
+            'Generate latex + bibtex citation commands by looking at what '
             'packages are imported in your Python code.\n\n'
-            'Examples\n--------\n' + examples)
+            'Examples\n--------\n{1}'.format(__version__, examples))
     parser = ArgumentParser(description=desc,
                             formatter_class=RawTextHelpFormatter)
 
