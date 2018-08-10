@@ -9,6 +9,9 @@ from makecite import __version__
 entry_points = {}
 entry_points['console_scripts'] = ['makecite = makecite.cmdline:main']
 
+with open('README.md') as f:
+    LONG_DESCRIPTION = f.read()
+
 setup(name='makecite',
       packages=['makecite'],
       version=__version__,
@@ -17,8 +20,7 @@ setup(name='makecite',
       package_data={'makecite': ['makecite/bibfiles/*.bib']},
       include_package_data=True,
       description='Autogenerate bibtex citations for common Python packages',
-      long_description=("Searches through a Python and Jupyter Notebook files "
-                        "and creates a bibtex citation string for all " "packages used."),
+      long_description=LONG_DESCRIPTION,
       author=('Adrian Price-Whelan, '
               'Alexandar Mechev, '
               'Julia Melo Rodrigues de Aguiar, '
