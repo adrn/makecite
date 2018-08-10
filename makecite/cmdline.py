@@ -153,7 +153,9 @@ def main(args=None):
     name_to_tags = dict()
     for package in sorted(list(packages)):
         try:
-            bibtex = get_bibtex(package)
+            bibtex = get_bibtex_from_package(package)
+            if bibtex is None:
+                bibtex = get_bibtex(package)
             y_citation.append(package)
             name_to_tags[package] = cite_tag_pattr.findall(bibtex)
         except ValueError:
