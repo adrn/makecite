@@ -149,7 +149,7 @@ def main(args=None):
         for name, tags in name_to_tags.items():
             cites.append('{0} \\citep{{{1}}}'.format(name, ', '.join(tags)))
 
-        software = ('\software{{{0}}}'.format(', '.join(cites)))
+        software = r'\software{{{0}}}'.format(', '.join(cites))
 
         print("\nSoftware tag for AAS journals:")
         print(software)
