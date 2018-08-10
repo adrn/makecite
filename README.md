@@ -10,6 +10,22 @@
 Generate latex + bibtex citation commands by looking at what packages are imported in your Python code.
 
 
+## Installation
+
+The recommended installation procedure is to use `pip`:
+
+```
+pip install makecite
+```
+
+To install the development version, you can `pip` install directly from this
+GitHub repository with:
+
+```
+pip install git+https://github.com/adrn/makecite
+```
+
+
 ## Examples
 
 Get bibtex records for packages used in a single script, and store to a `.bib` file in the current working directory:
