@@ -21,9 +21,10 @@ setup(name='makecite',
                         "and creates a bibtex citation string for all " "packages used."),
       author=('Adrian Price-Whelan, '
               'Alexandar Mechev, '
-              'Julia Melo Rodrigues de Aguiar'),
+              'Julia Melo Rodrigues de Aguiar',
+              'Leon Trapman'),
       author_email='adrn@astro.princeton.edu',
-      url='https://www.github.com/adrn/makecite',
+      url='https://github.com/adrn/makecite',
       download_url='https://github.com/adrn/makecite/archive/v0.0.1.tar.gz',
       keywords=['LaTeX', 'Astronomy', 'Citation', 'package management'],
       classifiers=['Development Status :: 1 - Planning',
