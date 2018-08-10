@@ -73,9 +73,33 @@ def get_bibtex(package_name):
     return bibtex
 
 def main(args=None):
-    from argparse import ArgumentParser
+    from argparse import ArgumentParser, RawTextHelpFormatter
 
-    parser = ArgumentParser(description='TODO: docs')
+    examples = '''Get bibtex records for packages used in a single script, and store to a `.bib` file in the current working directory:
+
+    makecite my_script.py
+
+
+    Get bibtex records for packages used in all `.py` scripts in the current directory and store to a `.bib` file called "software_refs.bib":
+
+    makecite --ext=.py -o software_refs.bib .
+
+
+    Get bibtex records for packages used in all `.py` scripts and IPython notebook, `.ipynb`, files in two paths `my_code` and `my_notebooks`:
+
+    makecite --ext=.py --ext=.ipynb my_code my_notebooks
+
+
+    Get bibtex records for packages used in all `.py` scripts in the current directory and output a AAS journals `\software{}` tag:
+
+    makecite --ext=.py --aas .
+    '''
+
+    desc = ('Generate latex + bibtex citation commands by looking at what '
+            'packages are imported in your Python code.\n\n'
+            'Examples\n--------\n' + examples)
+    parser = ArgumentParser(description=desc,
+                            formatter_class=RawTextHelpFormatter)
 
     parser.add_argument('-e', '--ext', action='append', dest='extensions',
                         default=None,
