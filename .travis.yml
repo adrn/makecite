@@ -4,10 +4,12 @@ python:
   - 3.5
   - 3.6
 
-# emcee is needed to test __bibtex__
+
 before_install:
- - pip install pytest codecov pytest-cov ipython nbformat nbconvert emcee
+ - pip install pytest codecov pytest-cov ipython nbformat nbconvert
  - pip install coverage coveralls
+ # emcee is needed to test __bibtex__, and we need to use the dev version
+ - pip install 'https://github.com/dfm/emcee/archive/master.zip'
 
 env:
     global:
