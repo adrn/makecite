@@ -1,7 +1,8 @@
-0.3 (unreleased)
+0.3 (2018-08-10)
 ================
 
--
+- Added support to read __bibtex__ or __citation__ from packages before checking
+  for .bib file.
 
 
 0.2 (2018-08-10)
