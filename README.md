@@ -4,6 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/adrn/makecite/badge.svg?branch=master)](https://coveralls.io/github/adrn/makecite?branch=master)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/adrn/makecite/blob/master/LICENSE)
 ![badge-img](https://img.shields.io/badge/Made%20at-%23AstroHackWeek-8063d5.svg?style=flat)
+[![DOI](https://zenodo.org/badge/143292502.svg)](https://zenodo.org/badge/latestdoi/143292502)
+
 
 Generate latex + bibtex citation commands by looking at what packages are imported in your Python code.
 
@@ -32,7 +34,8 @@ makecite --ext=.py --ext=.ipynb my_code my_notebooks
 
 ## Citing this script
 
-TODO
+If you use this script, please consider citing [our Zenodo
+record](https://zenodo.org/badge/latestdoi/143292502)!
 
 
 ## License
