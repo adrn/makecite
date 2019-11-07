@@ -1,6 +1,7 @@
 # Standard library
 import os
 import re
+import sys
 import warnings
 import importlib
 
@@ -12,7 +13,9 @@ from .parsers import parser_map
 _bib_path = os.path.join(os.path.split(os.path.abspath(__file__))[0],
                          'bibfiles')
 
-def get_all_packages(paths, extensions=['.py', '.ipynb']):
+
+def get_all_packages(paths, extensions=['.py', '.ipynb'],
+                     include_imported_dependencies=False):
     """Get a unique list (set) of all package names imported by all files of
     the requested extensions
 
@@ -20,6 +23,7 @@ def get_all_packages(paths, extensions=['.py', '.ipynb']):
     ----------
     paths : list, str
     extensions : list, iterable
+    include_imported_dependencies : bool, optional
 
     Returns
     -------
@@ -46,6 +50,33 @@ def get_all_packages(paths, extensions=['.py', '.ipynb']):
             for file in files:
                 _packages = parser_map[ext](file)
                 all_packages = all_packages.union(_packages)
+
+    if include_imported_dependencies:
+        init_modules = sys.modules.copy()
+
+        # Now we have a list of package names, so we can import them and track
+        # what other packages are imported as dependencies. If requested, we add
+        # those to the package list as well
+        for package_name in all_packages:
+            try:
+                importlib.import_module(package_name)
+            except ImportError:
+                # here, just skip if we can't import: a warning is issued later
+                pass
+
+        loaded_modules = sys.modules.copy()
+        diff_modules = set(loaded_modules.keys()) - set(init_modules.keys())
+
+        additional_modules = set()
+        for module in diff_modules:
+            top_level = module.split('.')[0]
+
+            if top_level.startswith('_'):
+                continue
+
+            additional_modules.add(top_level)
+
+        all_packages = all_packages.union(additional_modules)
 
     return all_packages
 
@@ -99,8 +130,8 @@ def get_bibtex_from_package(package_name, update_local=False):
             if citation_info:
                 break
     except ImportError:
-        warnings.warn("{} is not installed, cannot look for package provided BibTeX."
-                      .format(package_name))
+        warnings.warn(f"{package_name} is not installed, cannot look for "
+                      "package provided BibTeX.")
         return None
 
     if citation_info and update_local:
@@ -154,6 +185,14 @@ def main(args=None):
                              'exists, this will append the citations to the ' 'end of the existing file. Otherwise, the file '
                              'is created.')
 
+    parser.add_argument('-r', '--recursive', dest='recursive', default=False,
+                        action='store_true',
+                        help='Discover what packages are imported by imports '
+                              'in the script or modules being parsed. For '
+                              'example, if the script you run makecite on '
+                              'imports another package, and you want to cite '
+                              'all packages used, use this flag.')
+
     parser.add_argument('--aas', action='store_true', dest='aas_tag',
                         default=False,
                         help='Also generate a AAS Latex \software{} tag with '
@@ -174,7 +213,8 @@ def main(args=None):
         args.extensions = ['.py', '.ipynb']
 
     packages = get_all_packages(paths=args.paths,
-                                extensions=args.extensions)
+                                extensions=args.extensions,
+                                include_imported_dependencies=args.recursive)
 
     all_bibtex = ""
     y_citation = []
