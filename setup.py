@@ -43,5 +43,5 @@ setup(name='makecite',
                    'Programming Language :: Python :: 3.5',
                    'Programming Language :: Python :: 3.6'
                    ],
-      entry_points=entry_points
+      entry_points=entry_points, install_requires=['cffconvert']
       )
