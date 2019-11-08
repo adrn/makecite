@@ -1,7 +1,8 @@
-0.4 (unreleased)
+0.5 (2019-11-08)
 ================
 
--
+- Added support for reading citation information from CITATION or .cff files.
+- Added support for recursively discovering package dependencies.
 
 
 0.4 (2018-08-10)
