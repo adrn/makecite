@@ -1,5 +1,6 @@
 from os import path
 
+
 def parse_py_module(filename_or_str):
     """A simple parser for extracting the names of imported modules / packages
     from a Python module.
@@ -40,7 +41,7 @@ def parse_py_module(filename_or_str):
         packages = packages.split(' import ')[0]
 
         # Split up import statements with multiple packages, comma-separated
-        if ',' in packages and not '\\' in packages:
+        if ',' in packages and '\\' not in packages:
             packages = [x.strip() for x in packages.split(',')]
 
         elif ',' in packages and "\\" in packages:
