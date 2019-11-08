@@ -3,6 +3,7 @@ import os
 import re
 import warnings
 import importlib
+from cffconvert import Citation
 
 # Package
 from . import __version__
@@ -11,6 +12,8 @@ from .parsers import parser_map
 
 _bib_path = os.path.join(os.path.split(os.path.abspath(__file__))[0],
                          'bibfiles')
+cite_tag_pattr = re.compile('@[a-zA-Z]+\{(.*),')
+
 
 def get_all_packages(paths, extensions=['.py', '.ipynb']):
     """Get a unique list (set) of all package names imported by all files of
@@ -111,6 +114,46 @@ def get_bibtex_from_package(package_name, update_local=False):
     return citation_info
 
 
+def get_bibtex_from_citation_file(package_name):
+    """
+    Fetch BibTeX information directly from the package if available in either
+    of the files CITATION.cff or CITATION (if installed).
+
+    Parameters
+    ----------
+    package_name : str
+        Name of the package.
+
+    Returns
+    -------
+    bibtex : str or None
+        Returns the BibTeX string or None if the package is not installed or doesn't provide one.
+    """
+    package = importlib.import_module(package_name)
+    cff_file = os.path.join(package.__path__[0], 'CITATION.cff')
+    citation_file = os.path.join(package.__path__[0], 'CITATION')
+    if os.path.exists(cff_file):
+        with open(cff_file) as f:
+            cffstr = f.read()
+        citation = Citation(cffstr=cffstr)
+        bibtex = citation.as_bibtex()
+    elif os.path.exists(citation_file):
+        with open(citation_file) as f:
+            citestr = f.read()
+        match = re.search(cite_tag_pattr, citestr)
+        if match is None:
+            raise ValueError('Could not find any BibTeX entries in CITATION file')
+        for i_end in range(match.end(), len(citestr)):
+            bibtex = citestr[match.start():i_end]
+            if bibtex.count('{') == bibtex.count('}'):
+                break
+        else:
+            raise ValueError('Mismatched braces in BibTeX entry in CITATION file')
+    else:
+        bibtex = None
+    return bibtex
+
+
 def main(args=None):
     from argparse import ArgumentParser, RawTextHelpFormatter
 
@@ -168,8 +211,6 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    cite_tag_pattr = re.compile('@[a-zA-Z]+\{(.*),')
-
     if not args.extensions:
         args.extensions = ['.py', '.ipynb']
 
@@ -183,6 +224,8 @@ def main(args=None):
     for package in sorted(list(packages)):
         try:
             bibtex = get_bibtex_from_package(package)
+            if bibtex is None:
+                bibtex = get_bibtex_from_citation_file(package)
             if bibtex is None:
                 bibtex = get_bibtex(package)
             y_citation.append(package)

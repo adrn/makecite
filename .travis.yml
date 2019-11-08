@@ -8,7 +8,7 @@ python:
 before_install:
  - pip install pytest codecov pytest-cov ipython nbformat nbconvert
  - pip install coverage coveralls
- # emcee is needed to test __bibtex__, and we need to use the dev version
+ # emcee is needed to test __bibtex__
  - pip install emcee
 
 env:
