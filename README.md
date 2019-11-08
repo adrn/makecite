@@ -58,15 +58,20 @@ If you use this script, please consider citing [our Zenodo
 record](https://zenodo.org/badge/latestdoi/143292502):
 
 ```
-@misc{makecite:2018,
+@software{makecite,
   author       = {Adrian Price-Whelan and
                   Alexandar Mechev and
-                  jumeroag},
-  title        = {adrn/makecite: v0.1},
-  month        = aug,
-  year         = 2018,
-  doi          = {10.5281/zenodo.1343295},
-  url          = {https://doi.org/10.5281/zenodo.1343295}
+                  Brigitta Sipocz and
+                  Griffin Hosseinzadeh and
+                  jumeroag and
+                  Eric Bellm},
+  title        = {adrn/makecite v0.5},
+  month        = nov,
+  year         = 2019,
+  publisher    = {Zenodo},
+  version      = {v0.5},
+  doi          = {10.5281/zenodo.3533303},
+  url          = {https://doi.org/10.5281/zenodo.3533303}
 }
 ```
 
